@@ -46,6 +46,7 @@ void Camera::shutdown(){
 }
 
 Mat* Camera::takePicture(){
+    Mat *imageCopy = new Mat();
     // If the last frame was empty, return NULL
     if(countNonZero(lastFrame) < 1){
         cout << "Last frame is empty!" << endl;
@@ -53,7 +54,6 @@ Mat* Camera::takePicture(){
     }else{
         mtx.lock();
         //Instantiate a new matrix
-        Mat *imageCopy = new Mat();
         // Copy the data from the last frame into the return frame
         lastFrame->copyTo(*imageCopy);
         mtx.unlock();
@@ -67,6 +67,7 @@ Mat* Camera::takePicture(){
 }
 
 Camera::~Camera() {
-	// TODO Auto-generated destructor stub
+    delete lastFrame;
+    delete capture;
 }
 
