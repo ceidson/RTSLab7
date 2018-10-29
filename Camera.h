@@ -28,6 +28,8 @@ private:
 	VideoCapture* capture;
 	Mat* lastFrame;
 	mutex mtx;
+	int cam_width;
+	int cam_height;
 };
 
 #endif /* CAMERA_H_ */
