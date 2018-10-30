@@ -32,14 +32,18 @@ void Camera::run(){
         cout << "Failed to connect to the camera." << endl;
         exit(-1);
     }
+    cout << "Connection to cam successful" << endl;
     lastFrame = new Mat();
     // While thread is to keep running
     //// Grab the next image from the camera
     //// Retrieve the image into the last frame
     while(keepGoing){
+	cout << "In the loop" << endl;
         capture->grab();
         mtx.lock();
+	//cout << "In the mtx lock" << endl;
         capture->retrieve(*lastFrame);
+	cout << "Last frame rows: " << lastFrame->rows << "cols: " << lastFrame->cols << endl;
         mtx.unlock();
     }
     cout << " End Camera run" << endl;
@@ -55,20 +59,21 @@ void Camera::shutdown(){
 Mat* Camera::takePicture(){
     cout << " Start Camera Take Pic" << endl;
 
-    Mat *imageCopy = new Mat();
+   
     // If the last frame was empty, return NULL
     mtx.lock();
 
-    if(lastFrame == NULL){
+    if(lastFrame == NULL || lastFrame->cols <=0){
         cout << "Last frame is empty!" << endl;
         mtx.unlock();
         return NULL;
     }else{
         cout << " last frame is not empty" << endl;
-
+	Mat *imageCopy = new Mat();
         //Instantiate a new matrix
         // Copy the data from the last frame into the return frame
         lastFrame->copyTo(*imageCopy);
+	cout << "imageCopy rows: " << imageCopy->rows << "imageCopy cols: " << imageCopy->cols <<endl;
         mtx.unlock();
         // Return the frame
         return imageCopy;

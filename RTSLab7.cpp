@@ -5,9 +5,9 @@
  */
 
 using namespace std;
-//#include "ImageTransmitter.h"
+#include "ImageTransmitter.h"
 #include "Camera.h"
-//#include "ImageCapturer.h"
+#include "ImageCapturer.h"
 #include <chrono>
 #include <iostream>
 #include <mutex>
@@ -47,13 +47,13 @@ int main(int argc, char* argv[]) {
 
 	// Figure out the port to use.
 	int port = atoi(argv[2]);
-//	ImageTransmitter* it = new ImageTransmitter(argv[1], port);
+	ImageTransmitter* it = new ImageTransmitter(argv[1], port);
 	myCamera->start(10);
 
 	// Start capturing and streaming.
-//	ImageCapturer *is = new ImageCapturer("Image Stream", myCamera, it, tw, th);
-//	is->setTaskPeriod(100);
-//	is->start(8);
+	ImageCapturer *is = new ImageCapturer("Image Stream", myCamera, it, tw, th);
+	is->setTaskPeriod(100);
+	is->start(8);
 
 	string msg;
 	cin >> msg;
@@ -76,6 +76,6 @@ int main(int argc, char* argv[]) {
 	myCamera->shutdown();
 
 	delete myCamera;
-//	delete it;
-//	delete is;
+	delete it;
+	delete is;
 }
