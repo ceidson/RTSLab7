@@ -11,7 +11,7 @@
 
 #ifndef C_IMAGECAPTURER_H
 
-class ImageCapturer : PeriodicTask{
+class ImageCapturer : public PeriodicTask{
 public:
     ImageCapturer(std::string threadName, Camera* referencedCamera, ImageTransmitter* trans, int width, int height);
     virtual ~ImageCapturer();

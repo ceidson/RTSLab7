@@ -19,7 +19,7 @@ ImageCapturer::ImageCapturer(std::string threadName, Camera *referencedCamera, I
     myTrans = trans;
     imageHeight = height;
     imageWidth = width;
-    size = new Size(imageWidth, imageHeight);
+    size = new Size(width, height);
     cout << "Image Capturer started end" << endl;
 
 }
@@ -50,12 +50,16 @@ void ImageCapturer::run() {
     timeAfterPic =  std::chrono::high_resolution_clock::now();
 
     //  3b. Resize the image according to the desired size, if a resize needs to occur.
+    cout << "Size height is: " << size->height << " size width: " << size->width <<endl;
+
     if(picture->rows != size->height || picture->cols != size->width){
-        Mat* resizedPic;
-        resize(*picture, *resizedPic, *size);
-        picture = resizedPic;
-        resizedPic = nullptr;
+	Mat* newPic = new Mat();
+        cout << "We about to resize" << endl;
+        resize(*picture, *newPic, *size);
+        cout << "We resized" <<endl;
+	picture = newPic;
     }
+    cout << "We made it past resize" << endl;
 
 
     //  4. Obtain the time since the epoch from the system clock in ms.
