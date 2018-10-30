@@ -28,7 +28,7 @@ ImageTransmitter::~ImageTransmitter() {
 }
 
 int ImageTransmitter::streamImage(Mat *image) {
-    if(countNonZero(*image) > 1 && destinationMachineName != NULL){
+    if(image != NULL && destinationMachineName != NULL){
         // Increment the image count
         imageCount++;
         // Initialize the socket sockfd to be a DGRAM
@@ -54,8 +54,8 @@ int ImageTransmitter::streamImage(Mat *image) {
 
         serv_addr.sin_port = htons(myPort);
         // Obtain the image rows, columns, and message size (which is 3 * columns + 24)
-        int rows = image->height;
-        int columns = image->width;
+        int rows = image->rows;
+        int columns = image->cols;
         int size = 3 * columns + 24;
         // Allocate a buffer of message size length on the heap
         char* msg = new char[size];

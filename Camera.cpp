@@ -52,7 +52,7 @@ Mat* Camera::takePicture(){
     // If the last frame was empty, return NULL
     mtx.lock();
 
-    if(countNonZero(*lastFrame) < 1){
+    if(lastFrame == NULL){
         cout << "Last frame is empty!" << endl;
         mtx.unlock();
         return NULL;
