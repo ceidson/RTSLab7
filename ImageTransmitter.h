@@ -26,7 +26,7 @@ private:
     int sockfd = 0;
     char* destinationMachineName = NULL;
     int imageCount = 0;
-    struct hostnet* server;
+    struct hostent* server;
     int serverlen;
     struct sockaddr_in serv_addr;
 public:

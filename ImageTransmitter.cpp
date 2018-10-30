@@ -28,7 +28,7 @@ ImageTransmitter::~ImageTransmitter() {
 }
 
 int ImageTransmitter::streamImage(Mat *image) {
-    if(countNonZero(*lastFrame) > 1 && destinationMachineName != NULL){
+    if(countNonZero(*image) > 1 && destinationMachineName != NULL){
         // Increment the image count
         imageCount++;
         // Initialize the socket sockfd to be a DGRAM
@@ -39,7 +39,7 @@ int ImageTransmitter::streamImage(Mat *image) {
             exit(-1);
         }
         // Get host by name and set up server instance
-        server = gethostbyname(*destinationMachineName);
+        server = gethostbyname(destinationMachineName);
         // If the server is NULL, exit
         if(server == NULL){
             cout << "Server was NULL" << endl;
