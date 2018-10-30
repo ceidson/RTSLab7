@@ -14,11 +14,14 @@ using namespace std;
 using namespace cv;
 
 ImageCapturer::ImageCapturer(std::string threadName, Camera *referencedCamera, ImageTransmitter *trans, int width, int height):PeriodicTask("ImageCapturerPeriodicTask") {
+    cout << "Image Capturer started creating" << endl;
     myCamera = referencedCamera;
     myTrans = trans;
     imageHeight = height;
     imageWidth = width;
     size = new Size(imageWidth, imageHeight);
+    cout << "Image Capturer started end" << endl;
+
 }
 
 ImageCapturer::~ImageCapturer() {
@@ -27,6 +30,8 @@ ImageCapturer::~ImageCapturer() {
 }
 
 void ImageCapturer::run() {
+    cout << "Image Capturer started run" << endl;
+
     std::chrono::high_resolution_clock::time_point timeBeforePic;
     std::chrono::high_resolution_clock::time_point timeAfterPic;
     std::chrono::high_resolution_clock::time_point timeAfterResize;
@@ -73,5 +78,8 @@ void ImageCapturer::run() {
     std::cout << "Time to grab picture: " << grabPicTimespan.count() << "ms" << std::endl;
     std::cout << "Time to resize picture: " << resizePicTimespan.count() << "ms" << std::endl;
     std::cout << "Time to transmit picture: " << transmitPicTimespan.count() << "ms" << std::endl;
+
+    cout << "Image Capturer ended run" << endl;
+
 }
 
