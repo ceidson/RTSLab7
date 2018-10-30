@@ -54,9 +54,8 @@ int ImageTransmitter::streamImage(Mat *image) {
 
         serv_addr.sin_port = htons(myPort);
         // Obtain the image rows, columns, and message size (which is 3 * columns + 24)
-        Size s = image->size();
-        int rows = s.height;
-        int columns = s.width;
+        int rows = image->height;
+        int columns = image->width;
         int size = 3 * columns + 24;
         // Allocate a buffer of message size length on the heap
         char* msg = new char[size];

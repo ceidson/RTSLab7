@@ -46,7 +46,7 @@ void ImageCapturer::run() {
 
     //  3b. Resize the image according to the desired size, if a resize needs to occur.
     if(picture->rows != size->height || picture->cols != size->width){
-        Mat* resizedPic = resize(picture, resizedPic, size);
+        Mat* resizedPic = resize(picture, resizedPic, size, 0 , 0 , INTER_LINEAR);
         picture = resizedPic;
         resizedPic = nullptr;
     }
