@@ -35,7 +35,7 @@ void Camera::run(){
     //// Retrieve the image into the last frame
     while(keepGoing){
         capture->grab();
-        capture->retrieve(lastFrame);
+        capture->retrieve(*lastFrame);
     }
 
 }
@@ -48,7 +48,7 @@ void Camera::shutdown(){
 Mat* Camera::takePicture(){
     Mat *imageCopy = new Mat();
     // If the last frame was empty, return NULL
-    if(countNonZero(lastFrame) < 1){
+    if(countNonZero(*lastFrame) < 1){
         cout << "Last frame is empty!" << endl;
         return NULL;
     }else{
