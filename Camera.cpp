@@ -26,7 +26,7 @@ Camera::Camera(string threadName, int width, int height): RunnableClass(threadNa
 }
 
 void Camera::run(){
-    cout << " Start Camera run" << endl;
+   // cout << " Start Camera run" << endl;
     //If we are unable to connect then exit
     if(!capture->isOpened()){
         cout << "Failed to connect to the camera." << endl;
@@ -38,12 +38,12 @@ void Camera::run(){
     //// Grab the next image from the camera
     //// Retrieve the image into the last frame
     while(keepGoing){
-	cout << "In the loop" << endl;
+	//cout << "In the loop" << endl;
         capture->grab();
         mtx.lock();
 	//cout << "In the mtx lock" << endl;
         capture->retrieve(*lastFrame);
-	cout << "Last frame rows: " << lastFrame->rows << "cols: " << lastFrame->cols << endl;
+	//cout << "Last frame rows: " << lastFrame->rows << "cols: " << lastFrame->cols << endl;
         mtx.unlock();
     }
     cout << " End Camera run" << endl;
@@ -68,12 +68,12 @@ Mat* Camera::takePicture(){
         mtx.unlock();
         return NULL;
     }else{
-        cout << " last frame is not empty" << endl;
+        //cout << " last frame is not empty" << endl;
 	Mat *imageCopy = new Mat();
         //Instantiate a new matrix
         // Copy the data from the last frame into the return frame
         lastFrame->copyTo(*imageCopy);
-	cout << "imageCopy rows: " << imageCopy->rows << "imageCopy cols: " << imageCopy->cols <<endl;
+	//cout << "imageCopy rows: " << imageCopy->rows << "imageCopy cols: " << imageCopy->cols <<endl;
         mtx.unlock();
         // Return the frame
         return imageCopy;
