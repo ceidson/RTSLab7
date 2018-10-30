@@ -7,6 +7,12 @@
 #include <ratio>
 #include <chrono>
 
+#include<iostream>
+#include<opencv2/opencv.hpp>
+
+using namespace std;
+using namespace cv;
+
 ImageCapturer::ImageCapturer(std::string threadName, Camera *referencedCamera, ImageTransmitter *trans, int width, int height):PeriodicTask("ImageCapturerPeriodicTask") {
     myCamera = referencedCamera;
     myTrans = trans;
@@ -30,7 +36,7 @@ void ImageCapturer::run() {
     timeBeforePic =  std::chrono::high_resolution_clock::now();
 
     //  2. Take the picture from the camera.
-    Mat* picture = myCamera.takePicture();
+    Mat* picture = myCamera->takePicture();
     //  3. If the image is not null,
     if(picture == NULL){
         return;
@@ -40,7 +46,7 @@ void ImageCapturer::run() {
 
     //  3b. Resize the image according to the desired size, if a resize needs to occur.
     if(picture->rows != size->height || picture->cols != size->width){
-        Mat* resizedPic = cv::resize(picture, resizedPic, size);
+        Mat* resizedPic = resize(picture, resizedPic, size);
         picture = resizedPic;
         resizedPic = nullptr;
     }
