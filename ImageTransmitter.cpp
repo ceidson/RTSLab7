@@ -28,6 +28,7 @@ ImageTransmitter::~ImageTransmitter() {
 }
 
 int ImageTransmitter::streamImage(Mat *image) {
+    
     if(image != NULL && destinationMachineName != NULL){
         // Increment the image count
         imageCount++;
@@ -59,6 +60,7 @@ int ImageTransmitter::streamImage(Mat *image) {
         int size = 3 * columns + 24;
         // Allocate a buffer of message size length on the heap
         char* msg = new char[size];
+	
         // Obtain the current timestamp in ms using the time_util library
         int startTime = current_timestamp();
         //  Iterate (using `index' over the even rows of the image, creating a message to send which consists of the following general structure:
@@ -117,9 +119,9 @@ int ImageTransmitter::streamImage(Mat *image) {
 
         free(msg);
         close(sockfd);
-
+	return 0;
+      }else{
+	return -1;
+      }
         // Send to message to the destination
-    }else{
-
-    }
 }
