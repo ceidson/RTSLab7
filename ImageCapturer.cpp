@@ -86,6 +86,5 @@ void ImageCapturer::run() {
     cout << "Image Capturer ended run" << endl;
 
   delete picture;
-  delete newPic;
 }
 
